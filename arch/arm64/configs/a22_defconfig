@@ -599,15 +599,12 @@ CONFIG_CMDLINE_FROM_BOOTLOADER=y
 # CONFIG_EFI is not set
 # CONFIG_BUILD_ARM64_APPENDED_DTB_IMAGE is not set
 # CONFIG_UH is not set
-<<<<<<< HEAD:arch/arm64/configs/a22_defconfig
-=======
 # CONFIG_UH_DEBUG is not set
 # CONFIG_UH_RKP is not set
 # CONFIG_RUSTUH_RKP is not set
 # CONFIG_RUSTUH_KDP is not set
 # CONFIG_RUSTUH_KDP_CRED is not set
 # CONFIG_RUSTUH_KDP_NS is not set
->>>>>>> 63ec796f5259 (ARM64: configs: lineage_a32_defconfig: Disable Knox/Security related features):arch/arm64/configs/lineage_a32_defconfig
 
 #
 # Userspace binary formats
@@ -4940,6 +4937,10 @@ CONFIG_FLIP_COVER_DETECTOR_FACTORY=y
 # CONFIG_SENSORS_SX9360_SUB is not set
 # CONFIG_SPU_VERIFY is not set
 
+#
+# samsung Performace manager
+#
+# CONFIG_KPERFMON is not set
 # CONFIG_ICD is not set
 CONFIG_DEV_RIL_BRIDGE=y
 CONFIG_SEC_VIBRATOR=y
@@ -5631,8 +5632,6 @@ CONFIG_SECURITY_SELINUX=y
 # CONFIG_SECURITY_SELINUX_BOOTPARAM is not set
 # CONFIG_SECURITY_SELINUX_DISABLE is not set
 CONFIG_SECURITY_SELINUX_DEVELOP=y
-# CONFIG_ALWAYS_ENFORCE is not set
-# CONFIG_ALWAYS_PERMISSIVE is not set
 CONFIG_SECURITY_SELINUX_AVC_STATS=y
 CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE=0
 CONFIG_SECURITY_SELINUX_SIDTAB_HASH_BITS=9

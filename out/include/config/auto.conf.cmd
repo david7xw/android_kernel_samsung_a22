@@ -23,7 +23,6 @@ deps_config := \
 	security/samsung/dsms/Kconfig \
 	security/samsung/proca/gaf/Kconfig \
 	security/samsung/proca/Kconfig \
-	security/samsung/defex_lsm/Kconfig \
 	security/Kconfig.hardening \
 	security/integrity/evm/Kconfig \
 	security/integrity/ima/Kconfig \
@@ -164,7 +163,6 @@ deps_config := \
 	drivers/vibrator/common/Kconfig \
 	drivers/misc/drb/Kconfig \
 	drivers/security/samsung/icdrv/Kconfig \
-	drivers/kperfmon/Kconfig \
 	drivers/spu_verify/Kconfig \
 	drivers/sensors/Kconfig \
 	drivers/samsung/misc/Kconfig \
