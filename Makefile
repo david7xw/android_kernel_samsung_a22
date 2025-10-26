@@ -311,7 +311,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/x86_64/x86/ \
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 ARCH            ?= arm64
-CROSS_COMPILE   ?= $(srctree)/toolchain/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-androidkernel-
+CROSS_COMPILE   ?=/home/dave/toolchain/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-androidkernel-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -373,7 +373,7 @@ HOST_LOADLIBES := $(HOST_LFS_LIBS)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
 LDGOLD		= $(CROSS_COMPILE)ld.gold
-CC		= $(srctree)/toolchain/clang/host/linux-x86/clang-r383902/bin/clang
+CC		= /home/dave/toolchain/clang/host/linux-x86/clang-r383902/bin/clang
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -482,7 +482,7 @@ endif
 
 ifeq ($(cc-name),clang)
 ifneq ($(CROSS_COMPILE),)
-CLANG_TRIPLE	?= $(srctree)/toolchain/clang/host/linux-x86/clang-r383902/bin/aarch64-linux-gnu-
+CLANG_TRIPLE	?=/home/dave/toolchain/clang/host/linux-x86/clang-r383902/bin/aarch64-linux-gnu-
 CLANG_FLAGS	+= --target=$(notdir $(CLANG_TRIPLE:%-=%))
 ifeq ($(shell $(srctree)/scripts/clang-android.sh $(CC) $(CLANG_FLAGS)), y)
 $(error "Clang with Android --target detected. Did you specify CLANG_TRIPLE?")
@@ -719,10 +719,6 @@ endif
 ifdef CONFIG_CC_STACKPROTECTOR_REGULAR
   stackp-flag := -fstack-protector
   stackp-name := REGULAR
-else
-ifdef CONFIG_CC_STACKPROTECTOR_STRONG
-  stackp-flag := -fstack-protector-strong
-  stackp-name := STRONG
 else
   # Force off for distro compilers that enable stack protector by default.
   stackp-flag := $(call cc-option, -fno-stack-protector)
@@ -1908,8 +1904,6 @@ ifneq ($(cmd_files),)
   $(cmd_files): ;	# Do not try to update included dependency files
   include $(cmd_files)
 endif
-
-endif	# skip-makefile
 
 PHONY += FORCE
 FORCE:
