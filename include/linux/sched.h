@@ -1995,13 +1995,6 @@ extern long sched_getaffinity(pid_t pid, struct cpumask *mask);
 #define TASK_SIZE_OF(tsk)	TASK_SIZE
 #endif
 
-<<<<<<< HEAD
-#include <linux/sched/sched.h>
-#endif
-
-#ifdef CONFIG_SCHED_TUNE
-extern int set_stune_task_threshold(int threshold);
-=======
 void __exit_umh(struct task_struct *tsk);
 
 static inline void exit_umh(struct task_struct *tsk)
@@ -2010,5 +2003,4 @@ static inline void exit_umh(struct task_struct *tsk)
 		__exit_umh(tsk);
 }
 
->>>>>>> pk/bpf-5.4
 #endif
