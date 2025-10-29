@@ -47,19 +47,6 @@
 #include <net/inet_ecn.h>
 #include <net/dst_metadata.h>
 
-<<<<<<< HEAD
-static void ip6_rcv_finish_core(struct net *net, struct sock *sk,
-				struct sk_buff *skb)
-{
-	void (*edemux)(struct sk_buff *skb);
-
-	if (net->ipv4.sysctl_ip_early_demux && !skb_dst(skb) && skb->sk == NULL) {
-		const struct inet6_protocol *ipprot;
-
-		ipprot = rcu_dereference(inet6_protos[ipv6_hdr(skb)->nexthdr]);
-		if (ipprot && (edemux = READ_ONCE(ipprot->early_demux)))
-			edemux(skb);
-=======
 void udp_v6_early_demux(struct sk_buff *);
 void tcp_v6_early_demux(struct sk_buff *);
 int ip6_rcv_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
@@ -83,7 +70,6 @@ int ip6_rcv_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 				udp_v6_early_demux(skb);
 			break;
 		}
->>>>>>> pk/bpf-5.4
 	}
 
 	if (!skb_valid_dst(skb))
