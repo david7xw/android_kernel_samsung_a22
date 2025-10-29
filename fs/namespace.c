@@ -2437,6 +2437,7 @@ struct vfsmount *clone_private_mount(const struct path *path)
 	return new_mnt->mnt;
 #else
 	return &new_mnt->mnt;
+#endif
 
 invalid:
 	up_read(&namespace_sem);
@@ -2776,7 +2777,7 @@ static int do_change_type(struct path *path, int ms_flags)
 	return err;
 }
 
-static bool has_locked_children(struct mount *mnt, struct dentry *dentry)
+
 {
 	struct mount *child;
 	list_for_each_entry(child, &mnt->mnt_mounts, mnt_child) {
