@@ -233,6 +233,10 @@ struct mem_cgroup {
 	spinlock_t		move_lock;
 	unsigned long		move_lock_flags;
 
+#ifndef MEMCG_PADDING
+#define MEMCG_PADDING(x)
+#endif
+
 	MEMCG_PADDING(_pad1_);
 
 	/*
