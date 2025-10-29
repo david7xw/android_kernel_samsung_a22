@@ -416,7 +416,6 @@ drop_error:
 	goto drop;
 }
 
-static int ip_rcv_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
 	int ret;
 
