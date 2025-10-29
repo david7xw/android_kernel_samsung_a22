@@ -76,7 +76,6 @@ int ip6_rcv_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 		ip6_route_input(skb);
 }
 
-int ip6_rcv_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
 	/* if ingress device is enslaved to an L3 master device pass the
 	 * skb to its handler for processing
