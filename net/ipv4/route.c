@@ -1487,7 +1487,7 @@ struct uncached_list {
 
 static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt_uncached_list);
 
-static void rt_add_uncached_list(struct rtable *rt)
+void rt_add_uncached_list(struct rtable *rt)
 {
 	struct uncached_list *ul = raw_cpu_ptr(&rt_uncached_list);
 
@@ -1530,6 +1530,7 @@ static bool rt_cache_route(struct fib_nh *nh, struct rtable *rt)
 
 static void ipv4_dst_destroy(struct dst_entry *dst)
 {
+	struct rtable *rt = (struct rtable *)dst;
 	if (!list_empty(&rt->rt_uncached)) {
 		struct uncached_list *ul = rt->rt_uncached_list;
 
@@ -1539,7 +1540,6 @@ static void ipv4_dst_destroy(struct dst_entry *dst)
 	}
 }
 
-static void ipv4_dst_destroy(struct dst_entry *dst)
 {
 	struct dst_metrics *p = (struct dst_metrics *)DST_METRICS_PTR(dst);
 	struct rtable *rt = (struct rtable *)dst;
