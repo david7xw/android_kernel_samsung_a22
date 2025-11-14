@@ -193,9 +193,7 @@ void panic(const char *fmt, ...)
 	int state = 0;
 	int old_cpu, this_cpu;
 	bool _crash_kexec_post_notifiers = crash_kexec_post_notifiers;
-#ifndef CONFIG_MACH_MT6739
-#ifdef CONFIG_SEC_DEBUG_EXTRA_INFO
-	struct pt_regs regs
+	struct pt_regs regs;
 
 	if (panic_on_warn) {
 		/*
