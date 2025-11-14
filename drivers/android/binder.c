@@ -67,13 +67,11 @@
 #include <linux/rbtree.h>
 #include <linux/sched/signal.h>
 #include <linux/sched/mm.h>
-#include <linux/sched/types.h>
 #include <linux/seq_file.h>
 #include <linux/uaccess.h>
 #include <linux/pid_namespace.h>
 #include <linux/security.h>
 #include <linux/spinlock.h>
-#include <linux/ratelimit.h>
 
 #include <uapi/linux/android/binder.h>
 #include <uapi/linux/sched/types.h>
@@ -1842,7 +1840,9 @@ static void binder_do_set_priority(struct task_struct *task,
 
 	/* Set the actual priority */
 	if (task->policy != policy || is_rt_policy(policy)) {
-		struct sched_param params;
+		struct sched_param{
+			int sched_priority;
+		} params;
 
 		params.sched_priority = is_rt_policy(policy) ? priority : 0;
 
