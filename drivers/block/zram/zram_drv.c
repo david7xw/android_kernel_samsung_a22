@@ -430,7 +430,9 @@ static void fallocate_block(struct zram *zram, unsigned long blk_idx)
 
 static int init_lru_writeback(struct zram *zram)
 {
-	struct sched_param param = { .sched_priority = 0 };
+	struct sched_param {
+		int sched_priority;
+	} param = { .sched_priority = 0 };
 	int ret = 0;
 	int bitmap_sz;
 
@@ -3569,9 +3571,11 @@ static int zraminfo_proc_show(struct seq_file *m, void *v)
 		P2K(atomic64_read(&zram_devices->stats.failed_writes)),
 		P2K(atomic64_read(&zram_devices->stats.num_reads)),
 		P2K(atomic64_read(&zram_devices->stats.num_writes)),
-		P2K(atomic64_read(&zram_devices->stats.invalid_io)),
-		P2K(atomic_long_read(&zram_devices->stats.max_used_pages)),
-		P2K(pool_stats.pages_compacted));
+		P2K((unsigned long)atomic64_read(&zram_devices->stats.invalid_io)),
+		P2K((unsigned long)atomic_long_read(&zram_devices->stats.max_used_pages)),
+		P2K((unsigned long)atomic_long_read(&pool_stats.pages_compacted))
+		);
+
 #undef P2K
 #undef B2K
 		seq_printf(m, "Algorithm: [%s]\n", zram_devices->compressor);
