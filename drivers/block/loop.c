@@ -1248,6 +1248,7 @@ loop_set_status(struct loop_device *lo, const struct loop_info64 *info)
 	lo->lo_file_name[LO_NAME_SIZE-1] = 0;
 	lo->lo_crypt_name[LO_NAME_SIZE-1] = 0;
 
+	struct loop_func_table *xfer = NULL;
 	if (!xfer)
 		xfer = &none_funcs;
 	lo->transfer = xfer->transfer;
