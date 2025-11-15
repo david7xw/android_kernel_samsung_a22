@@ -955,10 +955,6 @@ static ssize_t fuse_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
 		if (err)
 			return err;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> pk/bpf-5.4
 	if (ff->passthrough.filp)
 		return fuse_passthrough_read_iter(iocb, to);
 	return generic_file_read_iter(iocb, to);
