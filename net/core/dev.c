@@ -4479,7 +4479,7 @@ static inline int nf_ingress(struct sk_buff *skb, struct packet_type **pt_prev,
 #endif /* CONFIG_NETFILTER_INGRESS */
 	return 0;
 }
-
+static int __netif_receive_skb_one_core(struct sk_buff *skb, bool pfmemalloc, struct packet_type **ppt_prev)
 {
 	struct packet_type *ptype, *pt_prev;
 	rx_handler_func_t *rx_handler;
@@ -4500,7 +4500,7 @@ static inline int nf_ingress(struct sk_buff *skb, struct packet_type **pt_prev,
 	skb_reset_mac_len(skb);
 
 	pt_prev = NULL;
-}
+
 
 another_round:
 	skb->skb_iif = skb->dev->ifindex;
@@ -4517,7 +4517,7 @@ another_round:
 	if (skb_skip_tc_classify(skb))
 		goto skip_classify;
 
-	if (pfmemalloc)
+	if (pmd_alloc)
 		goto skip_taps;
 
 	list_for_each_entry_rcu(ptype, &ptype_all, list) {
@@ -4531,6 +4531,7 @@ another_round:
 			ret = deliver_skb(skb, pt_prev, orig_dev);
 		pt_prev = ptype;
 	}
+
 
 skip_taps:
 #ifdef CONFIG_NET_INGRESS
@@ -4558,7 +4559,7 @@ skip_classify:
 		else if (unlikely(!skb))
 			goto out;
 	}
-	int (*rx_handler)(struct sk_buff **skb);
+
 	rx_handler = rcu_dereference(skb->dev->rx_handler);
 	if (rx_handler) {
 		if (pt_prev) {
@@ -4573,6 +4574,7 @@ skip_classify:
 			goto another_round;
 		case RX_HANDLER_EXACT:
 			deliver_exact = true;
+			break;
 		case RX_HANDLER_PASS:
 			break;
 		default:
@@ -4658,6 +4660,7 @@ EXPORT_SYMBOL(netif_receive_skb_core);
 static int __netif_receive_skb(struct sk_buff *skb)
 {
 	int ret;
+	struct packet_type *pt_prev = NULL;
 
 	if (sk_memalloc_socks() && skb_pfmemalloc(skb)) {
 		unsigned int noreclaim_flag;
@@ -4672,10 +4675,10 @@ static int __netif_receive_skb(struct sk_buff *skb)
 		 * context down to all allocation sites.
 		 */
 		noreclaim_flag = memalloc_noreclaim_save();
-		ret = __netif_receive_skb_one_core(skb, true);
+		ret = __netif_receive_skb_one_core(skb, true, &pt_prev);
 		memalloc_noreclaim_restore(noreclaim_flag);
 	} else
-		ret = __netif_receive_skb_one_core(skb, false);
+		ret = __netif_receive_skb_one_core(skb, false, &pt_prev);
 
 	return ret;
 }
