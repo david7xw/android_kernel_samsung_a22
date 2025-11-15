@@ -414,7 +414,6 @@ drop_error:
 	if (err == -EXDEV)
 		__NET_INC_STATS(net, LINUX_MIB_IPRPFILTER);
 	goto drop;
-}
 
 {
 	int ret;
