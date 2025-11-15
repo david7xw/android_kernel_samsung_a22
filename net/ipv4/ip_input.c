@@ -414,7 +414,9 @@ drop_error:
 	if (err == -EXDEV)
 		__NET_INC_STATS(net, LINUX_MIB_IPRPFILTER);
 	goto drop;
+}
 
+static int ip_rcv_finish_core(struct net *net, struct sock *sk, struct sk_buff *skb)
 {
 	int ret;
 
@@ -425,12 +427,11 @@ drop_error:
 	if (!skb)
 		return NET_RX_SUCCESS;
 
-	ret = ip_rcv_finish_core(net, sk, skb);
+	ret = ip_rcv_finish(net, sk, skb);
 	if (ret != NET_RX_DROP)
 		ret = dst_input(skb);
 	return ret;
 }
-
 /*
  * 	Main IP Receive routine.
  */
@@ -633,4 +634,3 @@ void ip_list_rcv(struct list_head *head, struct packet_type *pt,
 	/* dispatch final sublist */
 	ip_sublist_rcv(&sublist, curr_dev, curr_net);
 }
-
