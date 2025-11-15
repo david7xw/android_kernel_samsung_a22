@@ -313,7 +313,7 @@ struct task_struct *__kthread_create_on_node(int (*threadfn)(void *data),
 		static const struct sched_param {
     		int sched_priority;
 		} param = { .sched_priority = 0 };
-
+		char name[TASK_COMM_LEN];
 		/*
 		 * task is already visible to other tasks, so updating
 		 * COMM must be protected.
