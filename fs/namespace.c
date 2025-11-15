@@ -2777,7 +2777,7 @@ static int do_change_type(struct path *path, int ms_flags)
 	return err;
 }
 
-
+static bool has_locked_child(struct mount *mnt, struct dentry *dentry)
 {
 	struct mount *child;
 	list_for_each_entry(child, &mnt->mnt_mounts, mnt_child) {
