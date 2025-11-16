@@ -146,7 +146,7 @@ static int append_zeros(struct backing_file_context *bfc, size_t len)
 	result = vfs_fallocate(bfc->bc_file, 0, new_last_byte_offset, 1);
 	if (result != -EOPNOTSUPP)
 		return result;
-
+}
 static int write_to_bf(struct backing_file_context *bfc, const void *buf,
 			size_t count, loff_t pos)
 {
