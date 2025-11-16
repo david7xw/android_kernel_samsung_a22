@@ -6,6 +6,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #include <linux/sched.h>
+#include <linux/sched/signal.h>
 #include <linux/sched/clock.h>
 #include <linux/sched/energy.h>
 #include <uapi/linux/sched/types.h>
@@ -2829,7 +2830,9 @@ static void update_avg(u64 *avg, u64 sample)
 
 void sched_set_stop_task(int cpu, struct task_struct *stop)
 {
-	struct sched_param param = { .sched_priority = MAX_RT_PRIO - 1 };
+	struct sched_param {
+		int sched_priority;
+	} param = { .sched_priority = MAX_RT_PRIO - 1 };
 	struct task_struct *old_stop = cpu_rq(cpu)->stop;
 
 	if (stop) {
@@ -5668,7 +5671,9 @@ change:
 }
 
 static int _sched_setscheduler(struct task_struct *p, int policy,
-			       const struct sched_param *param, bool check)
+			       const struct sched_param {
+					int sched_priority;
+				   } *param, bool check)
 {
 	struct sched_attr attr = {
 		.sched_policy   = policy,
