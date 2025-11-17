@@ -18,7 +18,7 @@
 #include <linux/init_task.h>
 #include <linux/context_tracking.h>
 #include <linux/rcupdate_wait.h>
-
+#include <uapi/linux/sched/types.h>
 #include <linux/blkdev.h>
 #include <linux/kcov.h>
 #include <linux/kprobes.h>
@@ -68,6 +68,10 @@
 #ifdef CONFIG_SEC_DEBUG_EXTRA_INFO
 #include <linux/sec_debug.h>
 #endif
+
+struct sched_param {
+    int sched_priority;
+};
 
 DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);
 
