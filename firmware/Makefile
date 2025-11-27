@@ -26,7 +26,7 @@ fw-external-$(CONFIG_TOUCHSCREEN_SYNAPTICS_TCM) += tsp_synaptics/PR3160762_TD415
 endif
 
 fw-external-$(CONFIG_TOUCHSCREEN_MELFAS_MSS100) += melfas/melfas_mip4_ts.fw
-fw-external-$(CONFIG_TOUCHSCREEN_MELFAS) += tsp_melfas/mss100_a22.bin tsp_melfas/mss100_a22_old.bin
+# fw-external-$(CONFIG_TOUCHSCREEN_MELFAS) += tsp_melfas/mss100_a22.bin tsp_melfas/mss100_a22_old.bin
 fw-external-$(CONFIG_TOUCHSCREEN_IST4050) += tsp_imagis/ist40xx_a31.bin
 fw-external-$(CONFIG_TOUCHSCREEN_IST4050) += tsp_imagis/ist40xx_a31_cmcs.bin
 fw-external-$(CONFIG_TOUCHSCREEN_HIMAX_SPI) += tsp_himax/hx83108a_a13x.bin tsp_himax/hx83112f_boe_a13ve.bin
