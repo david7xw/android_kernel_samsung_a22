@@ -19,6 +19,13 @@
 
 #include <linux/types.h>
 
+#if !defined(__aarch64__) && !defined(__x86_64__) && !defined(__uint128_t)
+typedef struct {
+	__u64 a;
+	__u64 b;
+} __uint128_t;
+#endif
+
 /*
  * Signal context structure - contains all info to do with the state
  * before the signal handler was invoked.
