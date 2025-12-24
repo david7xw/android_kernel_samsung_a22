@@ -1405,6 +1405,25 @@ exit:
 }
 #endif /* USE_AOD */
 
+static void light_sensor_test(void *device_data)
+{
+	struct sec_cmd_data *cmd = (struct sec_cmd_data *)device_data;
+	struct mip4_ts_info *info = container_of(cmd, struct mip4_ts_info, cmd);
+	char buf[SEC_CMD_STR_LEN] = { 0 };
+
+	dev_dbg(&info->client->dev, "%s [START]\n", __func__);
+
+	sec_cmd_set_default_result(cmd);
+    
+	snprintf(buf, sizeof(buf), "%s", "OK");
+	sec_cmd_set_cmd_result(cmd, buf, strlen(buf));
+	cmd->cmd_state = SEC_CMD_STATUS_OK;
+
+	sec_cmd_set_cmd_exit(cmd);
+
+	dev_dbg(&info->client->dev, "%s [DONE]\n", __func__);
+}
+
 /*
  * Command : Not supported command
  */
@@ -1470,6 +1489,7 @@ static struct sec_cmd cmd_list[] = {
 	{SEC_CMD("aod_enable", aod_enable),},
 	{SEC_CMD("spay_enable", spay_enable),},
 #endif /* USE_AOD */
+	{SEC_CMD("light_sensor_test", light_sensor_test),},
 	{SEC_CMD("not_support_cmd", not_support_cmd),},
 };
 
